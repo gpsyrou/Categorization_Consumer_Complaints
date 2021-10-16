@@ -1,0 +1,8 @@
+{
+    "input_data": 
+    {
+        "source_url": "https://files.consumerfinance.gov/ccdb/complaints.csv.zip",
+        "output_directory": "data"
+    }
+        
+}
