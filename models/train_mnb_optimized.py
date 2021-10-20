@@ -10,7 +10,7 @@ from sklearn.model_selection import GridSearchCV
 
 
 param_grid = {
- 'alpha' : [0.01, 0.05, 0.10, 0.2]
+ 'alpha' : [0.01, 0.05, 0.10, 0.2, 0.5, 1.0, 2.0]
 }
 
 
@@ -42,12 +42,12 @@ if __name__ == '__main__':
     validation_dir = args.validation_dir
     
     train_data = pd.read_csv(os.path.join(training_dir, "train.csv"), header=None, names=None)
-    validation_data = pd.read_csv(os.path.join(validation_dir, "validation.csv"), header=None, names=None)
+    #validation_data = pd.read_csv(os.path.join(validation_dir, "validation.csv"), header=None, names=None)
     
-    combined_df = pd.concat([train_data, validation_data], axis=0)
+    #combined_df = pd.concat([train_data, validation_data], axis=0)
     
-    train_y = combined_df.loc[:,0]
-    train_x = combined_df.loc[:,1:]
+    train_y = train_data.loc[:,0]
+    train_x = train_data.loc[:,1:]
     #print(train_y)
 
     mnb_classifier = MultinomialNB(alpha=args.alpha)
@@ -57,12 +57,15 @@ if __name__ == '__main__':
         scoring=['f1_macro'],
         refit='f1_macro',
         param_grid=param_grid,
-        cv=5,
-        verbose=10,
+        cv=10,
+        verbose=1,
         n_jobs=1)
     
     model.fit(train_x, train_y)
     
+    print(model.best_estimator_)
+    print("\n")
+    print(pd.DataFrame(model.cv_results_))
+    
     # Save the trained model
     joblib.dump(model, os.path.join(args.model_dir, "model.joblib"))
-    
