@@ -2,8 +2,30 @@
 
 ## Machine Learning Engineer Nanodegree - Udacity
 <br>
-The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br><br>
+The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br>
 
+### Requirements
+The project has been completed by utilizing Amazon SageMaker for the data wrangling, EDA, model tuning/training and evaluation, as well as
+Amazon S3 for data storage. The project has been completed in Python.
+
+Python packages/libraries used:
+```
+sagemaker==2.59.3
+boto3==1.18.45
+
+wget==3.2
+nltk==3.6.2
+json==2.0.9
+zipfile==3.6.13
+pandas==1.1.5
+numpy==1.17.0
+pathlib==3.6.13
+seaborn==0.11.2
+matplotlib==3.6.13
+warnings==3.6.13
+sklearn==0.24.2
+joblib==1.0.1
+```
 ### Data Retrieval Process
 
 This is a public dataset and can be found in the following location: https://catalog.data.gov/dataset/consumer-complaint-database.
@@ -95,3 +117,4 @@ complaints_df.to_csv(reduced_csv_filepath, index=False)
 ```
 
 Please note that the output file from this will be around 550MB.
+
