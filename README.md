@@ -2,11 +2,11 @@
 
 ## Machine Learning Engineer Nanodegree - Udacity
 <br>
-The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br>
+The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br><br>
 
 ### Requirements
 The project has been completed by utilizing Amazon SageMaker for the data wrangling, EDA, model tuning/training and evaluation, as well as
-Amazon S3 for data storage. The project has been completed in Python.
+Amazon S3 for data storage. The main language of the project is Python.
 
 Python packages/libraries used:
 ```

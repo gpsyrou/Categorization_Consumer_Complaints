@@ -42,13 +42,9 @@ if __name__ == '__main__':
     validation_dir = args.validation_dir
     
     train_data = pd.read_csv(os.path.join(training_dir, "train.csv"), header=None, names=None)
-    #validation_data = pd.read_csv(os.path.join(validation_dir, "validation.csv"), header=None, names=None)
-    
-    #combined_df = pd.concat([train_data, validation_data], axis=0)
     
     train_y = train_data.loc[:,0]
     train_x = train_data.loc[:,1:]
-    #print(train_y)
 
     mnb_classifier = MultinomialNB(alpha=args.alpha)
     
@@ -63,9 +59,10 @@ if __name__ == '__main__':
     
     model.fit(train_x, train_y)
     
-    print(model.best_estimator_)
+    print("\nBest estimator: {0}".format(model.best_estimator_))
     print("\n")
     print(pd.DataFrame(model.cv_results_))
     
     # Save the trained model
     joblib.dump(model, os.path.join(args.model_dir, "model.joblib"))
+    
