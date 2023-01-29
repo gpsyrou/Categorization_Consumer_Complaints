@@ -1,6 +1,8 @@
 # Multi-class classification of Consumer Complaints on Financial Products: An Analysis with  Multinomial Naive Bayes and XGBoost
 ![Python](https://img.shields.io/badge/-Python-000?&logo=Python) ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange?&logo=Jupyter) ![Amazon Web Services](https://img.shields.io/badge/AWS-%23FF9900.svg?&logo=amazon-aws&logoColor=white)
 
+- Latest version of the finished Jupyter Notebook for the first version of the project can be found here: <a href="https://nbviewer.org/github/gpsyrou/Categorization_Consumer_Complaints/blob/main/notebooks/Consumer_Complaints.ipynb" >V1.0 Notebook</a>
+
 ## Introduction 
 
 Complaints from customers have always been a vital component of every successful company/organization. When the complaints are well-structured and provide insightful - rather than plain judgmental - feedback regarding the consumers experience with the product or service, they can assist the organizations to understand their customers needs - which in the long run could lead to satisfied customers and thus to higher earnings.
