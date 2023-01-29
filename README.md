@@ -1,7 +1,13 @@
 # Multi-class classification of Consumer Complaints on Financial Products: An Analysis with  Multinomial Naive Bayes and XGBoost
 ![Python](https://img.shields.io/badge/-Python-000?&logo=Python) ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange?&logo=Jupyter) ![Amazon Web Services](https://img.shields.io/badge/AWS-%23FF9900.svg?&logo=amazon-aws&logoColor=white)
 
+## Updates
+
+### Version 1.0
 - Latest version of the finished Jupyter Notebook for the first version of the project can be found here: <a href="https://nbviewer.org/github/gpsyrou/Categorization_Consumer_Complaints/blob/main/notebooks/Consumer_Complaints.ipynb" >V1.0 Notebook</a>
+
+### Version 2.0 (WIP)
+- _Work in progress_ - This version will move away from the AWS implementation to avoid excessive costs.
 
 ## Introduction 
 
@@ -13,25 +19,45 @@ In this repo, we will build an automatic product categorization solution based o
 
 Predicting the correct category for a complaint can be very beneficial for the financial institutions that have to deal with responding to hundreds of complaints per day. If the customer who is filling the complaint does not submit it under the correct category, then that becomes a cost for the financial institution as -usually- they will afterwards have to:
 
-1. Identify that a complaint is under the wrong category in the first place, which is something that happens only after someone has already spent time with the case
+- Identify that a complaint is under the wrong category in the first place, which is something that happens only after someone has already spent time with the case
 
-2. Re-classify and redirect the complaint to the correct category and the appropriate personnel for further examination
+- Re-classify and redirect the complaint to the correct category and the appropriate personnel for further examination
 
-## Evaluation Metrics
-Given that we are interested in building a process where we can assign as many complaints to their correct category as possible, we are proposing the F1-score as the main evaluation metric. Specifically, we will try to optimize and compare the models on the ‘macro’ version of the F1 score, which does not take into consideration the specific weights (i.e. number of instances per class) and thus assigns equal importance to each class. That way we can optimize the algorithms to favour all classes and not the majority ones.
+## Project Design
 
-Specifically, the F1-score can be calculated by following the formula below:
+1. Data Retrieval & Dataset Reduction: Retrieve data from source and reduce dataset to the required size and the specific years of interest.
+2. Initial Data Cleaning: Data cleaning tasks (e.g. removal of rows that don’t contain a complaint).
+3. Exploratory Data Analysis: Use summary tables and visualizations to further understand the data.
+4. Data Preprocessing/Feature Engineering: Tokenization of complaints, further cleaning (e.g. removal of punctuation), lemmatization, text vectorization with Bag of Words, and more.
+5. Train/Test/Validation sets creation: Split data to subsets that will be used for training, tuning and performance evaluation and generalization .
+6. Implementation of MNB and XGBoost models: Algorithm creation, training and tuning.
+7. Model Evaluation and Comparison: Evaluate the results, compare models in terms of performance and draw conclusions regarding the usefulness of each algorithm.
 
-$$Macro \: F_{1}-score=\frac{1}{|T|} \cdot \sum_{t{\in}T}\frac{2 \cdot \text{Precision} \cdot\text{Recall}}{\text{Precision} + \text{Recall}}$$
-
-, where T is describing the number of classes/labels.
-
-Except the quantitative evaluation metric above, we will also take into consideration the practical implications of constructing a machine learning algorithm in the business world. Hence, we should also take into account the complexity, as well as the time to train/tune each of the models.  These two factors can massively change the decisions that a company might make about which model to productionize, as more complex/time consuming models tend to be a higher cost for them.
-
+<p align="center">
+  <img src="img/project_outline.png" width="720" title="hover text">
+</p>
 
 ## Data
 
 The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br><br>
+
+The seven Product Categories that a complaint can belong to are:
+
+• Checking/savings account<br>
+• Credit reporting<br>
+• Credit/prepaid card<br>
+• Debt collection<br>
+• Loans<br>
+• Money services<br>
+• Mortgage<br>
+
+
+<p align="center">
+  <img src="img/product_categories.png" width="720" title="hover text">
+</p>
+
+
+Please note that the original dataset contains data from 2011 to 2021 and it is publicly available. Furthermore, it’s getting updated daily, something that makes it quite large. Hence, for the purposes of this project we will use a subset of this dataset and focus only at the aforementioned time period of two years (2019 and 2020).
 
 ### Environment Requirements
 The project has been completed by utilizing **_Amazon SageMaker_** for the data wrangling, EDA, model tuning/training and evaluation, as well as
@@ -146,4 +172,16 @@ complaints_df.to_csv(reduced_csv_filepath, index=False)
 ```
 
 Please note that the output file from this will be around 550MB.
+
+## Evaluation Metrics
+Given that we are interested in building a process where we can assign as many complaints to their correct category as possible, we are proposing the F1-score as the main evaluation metric. Specifically, we will try to optimize and compare the models on the ‘macro’ version of the F1 score, which does not take into consideration the specific weights (i.e. number of instances per class) and thus assigns equal importance to each class. That way we can optimize the algorithms to favour all classes and not the majority ones.
+
+Specifically, the F1-score can be calculated by following the formula below:
+
+$$Macro \: F_{1}-score=\frac{1}{|T|} \cdot \sum_{t{\in}T}\frac{2 \cdot \text{Precision} \cdot\text{Recall}}{\text{Precision} + \text{Recall}}$$
+
+, where T is describing the number of classes/labels.
+
+Except the quantitative evaluation metric above, we will also take into consideration the practical implications of constructing a machine learning algorithm in the business world. Hence, we should also take into account the complexity, as well as the time to train/tune each of the models.  These two factors can massively change the decisions that a company might make about which model to productionize, as more complex/time consuming models tend to be a higher cost for them.
+
 
