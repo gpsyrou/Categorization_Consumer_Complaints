@@ -25,13 +25,14 @@ Predicting the correct category for a complaint can be very beneficial for the f
 
 ## Project Design
 
-1. Data Retrieval & Dataset Reduction: Retrieve data from source and reduce dataset to the required size and the specific years of interest.
-2. Initial Data Cleaning: Data cleaning tasks (e.g. removal of rows that don’t contain a complaint).
-3. Exploratory Data Analysis: Use summary tables and visualizations to further understand the data.
-4. Data Preprocessing/Feature Engineering: Tokenization of complaints, further cleaning (e.g. removal of punctuation), lemmatization, text vectorization with Bag of Words, and more.
-5. Train/Test/Validation sets creation: Split data to subsets that will be used for training, tuning and performance evaluation and generalization .
-6. Implementation of MNB and XGBoost models: Algorithm creation, training and tuning.
-7. Model Evaluation and Comparison: Evaluate the results, compare models in terms of performance and draw conclusions regarding the usefulness of each algorithm.
+1. **Data Retrieval & Dataset Reduction**: Retrieve data from source and reduce dataset to the required size and the specific years of interest.
+2. **Initial Data Cleaning**: Data cleaning tasks (e.g. removal of rows that don’t contain a complaint).
+3. **Exploratory Data Analysis**: Use summary tables and visualizations to further understand the data.
+4. **Data Preprocessing/Feature Engineering**: Tokenization of complaints, further cleaning (e.g. removal of punctuation), lemmatization, text vectorization with Bag of Words, and more.
+5. **Train/Test/Validation sets creation**: Split data to subsets that will be used for training, tuning and performance evaluation and generalization .
+6. **Implementation of MNB and XGBoost models**: Algorithm creation, training and tuning.
+7. **Model Evaluation and Comparison**: Evaluate the results, compare models in terms of performance and draw conclusions regarding the usefulness of each algorithm. <br><br>
+
 
 <p align="center">
   <img src="img/project_outline.png" width="720" title="hover text">
@@ -39,7 +40,7 @@ Predicting the correct category for a complaint can be very beneficial for the f
 
 ## Data
 
-The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br><br>
+The data used in this project contain complaints that have been made by consumers regarding financial services and products (e.g. student loans, credit reports, etc) in the US from 2011 to the current date. Each of the complaints is marked to belong under one Product category. This makes the data ideal for supervised learning purposes, with the text (complaint) as the input, and the category that the complaint belongs to as the target variable.<br>
 
 The seven Product Categories that a complaint can belong to are:
 
@@ -55,7 +56,6 @@ The seven Product Categories that a complaint can belong to are:
 <p align="center">
   <img src="img/product_categories.png" width="720" title="hover text">
 </p>
-
 
 Please note that the original dataset contains data from 2011 to 2021 and it is publicly available. Furthermore, it’s getting updated daily, something that makes it quite large. Hence, for the purposes of this project we will use a subset of this dataset and focus only at the aforementioned time period of two years (2019 and 2020).
 
@@ -173,8 +173,28 @@ complaints_df.to_csv(reduced_csv_filepath, index=False)
 
 Please note that the output file from this will be around 550MB.
 
+## Algorithms
+
+### Benchmark Model
+
+**Multinomial Naive Bayes** is a simple but powerful algorithm under the umbrella of the ‘Naive Bayes’  models. Specifically, this is a family of models that are leveraging Bayes Theorem to perform their predictions, i.e. utilizing Bayes theorem to compute the probabilities of an instance belonging under a specific category - which in our case is the Product category.
+
+The ‘naivety’ of the model occurs due to the fact the Multinomial Naive Bayes is making a big assumption during the development of the model. Precisely, we are assuming that the features in the dataset are independent from each other. In practice this is rarely the case as features tend to be correlated with each other. We can imagine the same principle especially applies to text data, where words - and especially the order that they appear inside a text - could affect the whole meaning of a sentence. 
+
+Nonetheless the above is true, it has been proven that Multinomial Naive Bayes has had some great results both in the industry, as well as the academia, and it’s considered a great algorithm - especially when we are looking for a solution that performs well but needs low training times and computational power.
+
+Therefore, we are going to build and evaluate such a model, which will act as a “simple” but powerful baseline for categorizing the complaints.
+
+### Extreme Gradient Boosting (XGBoost)
+
+**XGBoost** is the main classifier that we are going to use in this project, and it’s one of the most well-known and successful algorithms that is widely used both for classification and regression purposes, mainly due to it’s great performance. It’s a form of an ensemble algorithm - which means that its leveraging the creation of many weak learners before it makes any predictions. XGBoost is utilizing boosting - which is a form of sequential learning (i.e. weak learners that are constructed sequentially and not in parallel like in bagging methods) - to build a series of decision trees (most of the times) .
+
+In this project we will construct an XGBoost classifier, tune it and evaluate it - while trying to answer the question: 
+
+_Would a more sophisticated model, like XGBoost, vastly outperform a simple prediction model like Multinomial Naive Bayes ?_
+
 ## Evaluation Metrics
-Given that we are interested in building a process where we can assign as many complaints to their correct category as possible, we are proposing the F1-score as the main evaluation metric. Specifically, we will try to optimize and compare the models on the ‘macro’ version of the F1 score, which does not take into consideration the specific weights (i.e. number of instances per class) and thus assigns equal importance to each class. That way we can optimize the algorithms to favour all classes and not the majority ones.
+Given that we are interested in building a process where we can assign as many complaints to their correct category as possible, we are proposing the **F1-score** as the main evaluation metric. Specifically, we will try to optimize and compare the models on the ‘macro’ version of the F1 score, which does not take into consideration the specific weights (i.e. number of instances per class) and thus assigns equal importance to each class. That way we can optimize the algorithms to favour all classes and not the majority ones.
 
 Specifically, the F1-score can be calculated by following the formula below:
 
